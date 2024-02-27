@@ -1,1 +1,33 @@
-ts
+
+
+import os
+import shutil
+ 
+#  # 绝对路径
+#  abs_path = '/home/user/documents/file.txt'
+#  # 相对于的基准路径
+#  base_path = '/home/user/documents/folder'
+#   
+#  # 提取相对路径
+#  relative_path = os.path.relpath(abs_path, base_path)
+#  print(relative_path)
+#  
+#  import os
+ 
+def traverse_folder(src, dst, fs):
+    for root, dirs, files in os.walk(src):
+        for file_name in files:
+            for item_name in fs:
+                if file_name == item_name:
+                    if not os.path.exists(dst):
+                        os.makedirs(dst)
+                    shutil.copy2(src + "/" + file_name, dst + "/" + file_name )
+            
+        for dr in dirs:
+            traverse_folder(src + "/" + dr, dst + "/" + dr, fs)
+
+if __name__ == "__main__":
+    src = "D:/test"
+    dst = "D:/test"
+    fs = ["cmakex", "cmakex2"]
+    traverse_folder(src, dst, fs);
